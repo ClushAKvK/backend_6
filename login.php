@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 // Иначе, если запрос был методом POST, т.е. нужно сделать авторизацию с записью логина в сессию.
 else {
-  $db = new PDO('mysql:host=localhost;dbname=u47569', $db_user, $db_pass, array(
+  $db = new PDO('mysql:host=localhost;dbname=u47533', $db_user, $db_pass, array(
     PDO::ATTR_PERSISTENT => true
   ));
 
