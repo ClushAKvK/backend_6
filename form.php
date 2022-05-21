@@ -1,207 +1,154 @@
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
 
-    #form {
-        margin: 0 auto;
-        text-align: center;
-        width: 100%;
-        border: 1px solid black;
-        background: blanchedalmond;
-        padding: 15px;
-    }
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&family=Poppins:wght@500&display=swap" rel="stylesheet"> 
 
-    input {
-        margin-bottom: 3px;
-    }
-
-    input {
-        height: calc(2.25rem + 2px);
-        font-family: inherit;
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.5;
-        color: #212529;
-        background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid #bdbdbd;
-        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        padding-left: 13px;
-    }
-
-    input:first-child {
-        margin-top: 20px;
-    }
-
-    .button-4 {
-        appearance: none;
-        background-color: #FAFBFC;
-        border: 1px solid rgba(27, 31, 35, 0.15);
-        border-radius: 6px;
-        box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
-        box-sizing: border-box;
-        color: #24292E;
-        cursor: pointer;
-        display: inline-block;
-        font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 20px;
-        list-style: none;
-        padding: 6px 16px;
-        position: relative;
-        transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-        vertical-align: middle;
-        white-space: nowrap;
-        word-wrap: break-word;
-    }
-
-    .button-4:hover {
-        background-color: #F3F4F6;
-        text-decoration: none;
-        transition-duration: 0.1s;
-    }
-
-    .button-4:disabled {
-        background-color: #FAFBFC;
-        border-color: rgba(27, 31, 35, 0.15);
-        color: #959DA5;
-        cursor: default;
-    }
-
-    .button-4:active {
-        background-color: #EDEFF2;
-        box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
-        transition: none 0s;
-    }
-
-    .button-4:focus {
-        outline: 1px transparent;
-    }
-
-    .button-4:before {
-        display: none;
-    }
-
-    .button-4:-webkit-details-marker {
-        display: none;
-    }
-
-    textarea {
-        height: 150px;
-        width: 33%;
-        padding: 12px 20px;
-        box-sizing: border-box;
-        border: 2px solid #ccc;
-        border-radius: 4px;
-        background-color: #f8f8f8;
-        resize: none;
-    }
-
-    input[type="radio"],
-    input[type="checkbox"] {
-        height: 15px;
-        color: red;
-    }
-
-    .error {
-        border: 2px solid red;
-    }
-</style>
-<?php
-if (!empty($messages)) {
-    print('<div id="messages">');
-    foreach ($messages as $message) {
+  <title>Задание 6</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="#form" title = "Форма">Форма</a></li>
+      <li>
+        <?php 
+        if(!empty($_COOKIE[session_name()]) && !empty($_SESSION['login']))
+          print('<a href="./?quit=1" title = "Выйти">Выйти</a>');
+        else {
+          print('<a href="login.php" title = "Войти">Войти</a>');
+          print('<a href="admin.php" title = "Администрирование"> Администрирование</a>');
+        }
+        ?>
+      </li>
+    </ul>
+  </nav>
+  <div class="main">
+    <?php 
+    if (!empty($messages)) {
+      print('<section id="messages">');
+      if ($hasErrors)
+        print('<h2>Ошибка</h2>');
+      else
+        print('<h2>Сообщения</h2>');
+      foreach ($messages as $message) {
         print($message);
+      }
+      print('</section>');
     }
-    print('</div>');
-}
-if (!empty($_COOKIE[session_name()]) && !empty($_SESSION['login']))
-    print('Привет, ' . $_SESSION['login'] . '   <a href="logout.php">Выйти</a>');
-else {
-    print('<a href="login.php">Войти</a>');
-}
-?>
-<form id="form" method="POST" action="">
-    <label> <input type="text" placeholder="Имя" name="fio" <?php if ($errors['fio']) {
-                                                                print 'class="error"';
-                                                            } ?> value="<?php print $values['fio']; ?>" /><br /></label>
-    <label><input type="email" placeholder="Email" name="email" <?php if ($errors['email']) {
-                                                                    print 'class="error"';
-                                                                } ?> value="<?php print $values['email']; ?>" /><br /></label>
-    <label><input type="date" name="date" <?php if ($errors['date']) {
-                                                print 'class="error"';
-                                            } ?> value="<?php print $values['date']; ?>" /><br /></label>
-    <label <?php if ($errors['gender']) {
-                print 'class="error"';
-            } ?>>
+    ?>
+    <section id="form">
+      <h2>Форма</h2>
+      <form action="."
+        method="POST">
         <label>
-            Пол
-            <input type="radio" name="gender" value="male" <?php if ($values['gender'] == 'male') {
-                                                                print 'checked';
-                                                            }; ?> />Мужской
+          Имя
+          <br />
+          <input name="name" <?php if (!empty($errors['name'])) {print 'class="error"';} ?>
+            value="<?php print $values['name']; ?>"/>
+        </label>
+        <br />
+
+        <label>
+          E-mail:
+          <br />
+          <input name="email" <?php if (!empty($errors['email'])) {print 'class="error"';} ?>
+            value="<?php print $values['email']; ?>"
+            type="email" />
+        </label>
+        <br />
+
+        <label>
+          Дата рождения:
+          <br />
+          <input name="birthday" <?php if (!empty($errors['birthday'])) {print 'class="error"';} ?>
+            value="<?php print $values['birthday']; ?>"
+            type="date" />
+        </label>
+        <br />
+
+        Пол:<br />
+        <label><input type="radio"
+          name="gender" value="M" <?php if ($values['gender'] == 'M') {print 'checked';} ?>/>
+          Мужской
         </label>
         <label>
-            <input type="radio" name="gender" value="female" <?php if ($values['gender'] == 'female') {
-                                                                    print 'checked';
-                                                                }; ?> />Женский
+        <input type="radio"
+          name="gender" value="F" <?php if ($values['gender'] == 'F') {print 'checked';} ?> />
+          Женский
         </label>
-    </label>
-    <br />
-    <label <?php if ($errors['arms']) {
-                print 'class="error"';
-            } ?>>
         <label>
-            Кол-во конечностей
-            <input type="radio" name="arms" value="1" <?php if ($values['arms'] == '1') {
-                                                            print 'checked';
-                                                        }; ?> />1
+        <input type="radio"
+          name="gender" value="O" <?php if ($values['gender'] == 'O') {print 'checked';} ?> />
+          Другое
         </label>
-        <label> <input type="radio" name="arms" value="2" <?php if ($values['arms'] == '2') {
-                                                                print 'checked';
-                                                            }; ?> />2 </label>
+        <br />
+
+        Количество конечностей:
+        <br />
         <label>
-            <input type="radio" name="arms" value="more" <?php if ($values['arms'] == '3') {
-                                                                print 'checked';
-                                                            }; ?> />3 и более
+        <input type="radio" <?php if ($values['limbs'] == '0') {print 'checked';} ?>
+          name="limbs" value="0" />
+          0
         </label>
-    </label>
-    <br /><br />
-    <label>
-        Сверхспособность<br />
-        <select name="arg[]" multiple="multiple" <?php if ($errors['arg']) {
-                                                        print 'class="error"';
-                                                    } ?>>
-            <option value="god" <?php $a = explode(',', $values['arg']);
-                                foreach ($a as $key) {
-                                    if ($key == 'god') {
-                                        print 'selected';
-                                    }
-                                } ?>>Бессмертие</option>
-            <option value="wall" <?php $a = explode(',', $values['arg']);
-                                    foreach ($a as $key) {
-                                        if ($key == 'wall') {
-                                            print 'selected';
-                                        }
-                                    } ?>>Прохождение сквозь стены</option>
-            <option value="fly" <?php $a = explode(',', $values['arg']);
-                                foreach ($a as $key) {
-                                    if ($key == 'fly') {
-                                        print 'selected';
-                                    }
-                                } ?>>Левитация</option>
-        </select> </label><br /><br />
-    <label> Биография<br /> <textarea name="about" <?php if ($errors['about']) {
-                                                        print 'class="error"';
-                                                    } ?>><?php print $values['about']; ?></textarea></label><br />
-    <label <?php if ($errors['check']) {
-                print 'class="error"';
-            } ?>><input type="checkbox" name="check" value="Yes" />С контрактом ознакомлен</label><br /><br />
-    <button type="submit" class="button-4">Отправить</button>
-</form>
+        <label>
+        <input type="radio" <?php if ($values['limbs'] == '1') {print 'checked';} ?>
+          name="limbs" value="1" />
+          1
+        </label>
+        <label>
+        <input type="radio" <?php if ($values['limbs'] == '2') {print 'checked';} ?>
+          name="limbs" value="2" />
+          2
+        </label>
+        <label>
+        <input type="radio" <?php if ($values['limbs'] == '3') {print 'checked';} ?>
+          name="limbs" value="3" />
+          3
+        </label>
+        <label>
+        <input type="radio" <?php if ($values['limbs'] == '4') {print 'checked';} ?>
+          name="limbs" value="4" />
+          4
+        </label>
+        <label>
+        <input type="radio" <?php if ($values['limbs'] == '5') {print 'checked';} ?>
+          name="limbs" value="5" />
+          5+
+        </label>
+        <br />
+
+        <label>
+          Сверхспособности:
+          <br />
+          <select name="superpowers[]"
+            multiple="multiple">
+            <option value="0" <?php if ($values['superpowers']['0']) {print 'selected';} ?>>Бессмертие</option>
+            <option value="1" <?php if ($values['superpowers']['1']) {print 'selected';} ?>>Прохождение сквозь стены</option>
+            <option value="2" <?php if ($values['superpowers']['2']) {print 'selected';} ?>>Левитация</option>
+          </select>
+        </label>
+        <br />
+
+        <label>
+          Биография:
+          <br />
+          <textarea name="biography"><?php print $values['biography']; ?></textarea>
+        </label>
+        <br />
+
+        <br />
+        <label <?php if (array_key_exists('contract', $errors)) {print 'class="error"';} ?>>
+        <input type="checkbox"
+          name="contract" <?php if ($values['contract']) {print 'checked';} ?>/>
+          С контрактом ознакомлен(-а)
+        </label>
+        <br />
+        
+        <input id="submit" type="submit" value="Отправить" />
+      </form>
+    </section>
+  </div>
+</body>
+</html>
