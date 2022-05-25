@@ -65,7 +65,7 @@
   }
   a {
       text-decoration: none;
-      color: rgb(255, 196, 2);
+      color: rgb(14, 96, 159);
   }
   
   nav a:hover, a:visited:hover {
@@ -108,7 +108,7 @@
   }
   
   input, select, textarea {
-    border: 1px solid #ffd000;
+    border: ridge 3px #9AB4D5;
     font-family: 'Noto Sans', sans-serif;
     padding: 3px;
   }
