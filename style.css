@@ -3,7 +3,7 @@
   }
   
   body {
-    background-color: #f3fdbc;
+    background-color: rgb(39, 34, 129);
     font-family: 'Noto Sans', sans-serif;
     margin: 0;
   }
@@ -11,8 +11,8 @@
   nav {
     margin: 0 auto;
     max-width: 960px;
-    background-color: #ffffff;
-    border: ridge 3px #ffd000;
+    background-color: rgb(199, 199, 199);
+    border: ridge 6px #9AB4D5;
     border-top: none;
     border-radius: 0px 0px 10px 10px;
   }
@@ -36,9 +36,9 @@
   
   section {
     padding: 20px 40px;
-    background-color: #ffffff;
+    background-color: rgb(199, 199, 199);
     margin: 10px 0;
-    border: ridge 3px #ffd000;
+    border: ridge 6px #9AB4D5;
     border-radius: 10px;
   }
   
@@ -58,7 +58,7 @@
     margin-right: 20px;
   }
   a:hover, a:visited:hover {
-      color: #D00;
+      color: black;
   }
   a:visited {
       color: rgb(93, 99, 13);
@@ -69,10 +69,10 @@
   }
   
   nav a:hover, a:visited:hover {
-    color: #D00;
+    color: black;
   }
   nav a, nav a:visited {
-    color: #D00;
+    color: black;
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
   }
@@ -87,12 +87,12 @@
   }
   
   table {
-    border: 3px double #ffd000;
+    border: ridge 6px #9AB4D5;
     border-collapse: collapse;
     margin: 10px auto;
   }
   td, th {
-    border: 1px solid #ffd000;
+    border: ridge 1px #9AB4D5;
     padding: 10px;
     text-align: center;
   }
@@ -120,12 +120,12 @@
     font-size: 20px;
     margin-top: 10px;
     background-color: #ffffff;
-    border: 2px solid #ffd000;
+    border: ridge 3px #9AB4D5;
     padding: 3px 20px;
   }
   input[type="submit"]:hover {
     background-color: #ffffff;
-    border-color: #ffd000;
+    border-color: #9AB4D5;
   }
   
   .error {
